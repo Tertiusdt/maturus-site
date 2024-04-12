@@ -1,0 +1,7 @@
+{
+  "name": "maturus-digital",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

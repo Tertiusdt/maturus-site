@@ -1,0 +1,8 @@
+.services-bar{
+    width: 100vw;
+    height: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}

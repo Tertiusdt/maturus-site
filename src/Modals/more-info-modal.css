@@ -1,0 +1,38 @@
+.modal {
+ margin: 0% auto;
+ width: 60%;
+ height: 70%;
+ background-color: white;
+ position: relative;
+ overflow: hidden;
+ padding-bottom: 20px;
+}
+
+.modal-header{
+    padding: 20px 0 0 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.close{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.modal-text-wrapper{
+    padding: 20px;
+    height: 70%;
+    overflow-y: scroll;
+
+
+}
+
+.service-text h3{
+    font-size: 20px;
+    margin-bottom: 0px;
+}
