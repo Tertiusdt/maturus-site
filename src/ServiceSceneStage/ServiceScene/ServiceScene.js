@@ -8,18 +8,19 @@ import {
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 // import { useControls } from "leva";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 // import { slideAtom } from "./Overlay";
 
 
 import ServicesData from "./../../Data/Services-data";
 import { ChildScene } from "../ChildScene/ChildScene";
 
-const CameraHandler = ({ slideDistance , activeService}) => {
-  const viewport = useThree((state) => state.viewport);
+const CameraHandler = ({ slideDistance , activeService, viewport}) => {
+  
   const cameraControls = useRef();
   const lastSlide = useRef(0);
 
+ 
   // const { dollyDistance } = useControls({
   //   dollyDistance: {
   //     value: 10,
@@ -29,6 +30,7 @@ const CameraHandler = ({ slideDistance , activeService}) => {
   // });
 
   const moveToSlide = async () => {
+
     await cameraControls.current.setLookAt(
       lastSlide.current * (viewport.width + slideDistance),
       3,
@@ -40,11 +42,11 @@ const CameraHandler = ({ slideDistance , activeService}) => {
       true
     );
     await cameraControls.current.setLookAt(
-      (activeService + 1) * (viewport.width + slideDistance),
+      (activeService +1) * (viewport.width + slideDistance),
       1,
       // dollyDistance,
       10,
-      activeService * (viewport.width + slideDistance),
+      (activeService) * (viewport.width + slideDistance),
       0,
       0,
       true
@@ -64,6 +66,8 @@ const CameraHandler = ({ slideDistance , activeService}) => {
   useEffect(() => {
     // Used to reset the camera position when the viewport changes
     const resetTimeout = setTimeout(() => {
+      console.log(viewport);
+      console.log("2", window.innerWidth, window.innerHeight);
       cameraControls.current.setLookAt(
         activeService * (viewport.width + slideDistance),
         0,
@@ -101,7 +105,7 @@ const CameraHandler = ({ slideDistance , activeService}) => {
 };
 
 const ServiceScene = ({activeService}) => {
-  const viewport = useThree((state) => state.viewport);
+  // const viewport = useThree((state) => state.viewport);
   // const { slideDistance } = useControls({
   //   slideDistance: {
   //     value: 1,
@@ -109,6 +113,18 @@ const ServiceScene = ({activeService}) => {
   //     max: 10,
   //   },
   // });
+  const factor = 0.009849948043805
+  const [viewport, setViewport] = useState({ width: 0, height: 0 });
+  
+
+
+  useEffect(() => {
+    console.log("run");
+    setViewport({
+      width: window.innerWidth * factor,
+      height: window.innerHeight * factor
+    });
+  },[])
 
 
   return (
@@ -116,7 +132,7 @@ const ServiceScene = ({activeService}) => {
     <ambientLight intensity={0.1} />
     <Environment preset={"sunset"} />
     <CameraHandler 
-    
+    viewport={viewport}
     // slideDistance={slideDistance}
     slideDistance={1}
     activeService={activeService - 1} />
@@ -131,15 +147,17 @@ const ServiceScene = ({activeService}) => {
       cellColor={"#a6a6a6"}
       cellThickness={0.3}
       infiniteGrid
-      fadeDistance={200}
+      fadeDistance={250}
       fadeStrength={8}
     />
     {ServicesData.map((scene, index) => (
+      
       <mesh
-        key={index}
-        // position={[index * (viewport.width + slideDistance), 0, 0]}
+        key={scene.id}
         position={[index * (viewport.width + 1), 0, 0]}
       >
+        {console.log(viewport.width, viewport.height)},
+        {console.log((<planeGeometry args={[viewport.width, viewport.height]} />).props.args,viewport.width, viewport.height) }
         <planeGeometry args={[viewport.width, viewport.height]} />
         <meshBasicMaterial toneMapped={false}>
           <RenderTexture attach="map">
@@ -147,7 +165,12 @@ const ServiceScene = ({activeService}) => {
           </RenderTexture>
         </meshBasicMaterial>
       </mesh>
+      
     ))}
+      {/* <mesh>
+        <boxGeometry position={[0,0,-10]} />
+        <meshBasicMaterial color="green" />
+      </mesh> */}
   </>
   );
 };

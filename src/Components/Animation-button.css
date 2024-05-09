@@ -1,0 +1,11 @@
+.swiper-slid{
+    width: 220px;
+    height: 60px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mySwiper {
+    width: 220px;
+    height: 60px !important;
+  }

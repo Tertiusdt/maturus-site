@@ -5,7 +5,13 @@ import "./Services.css";
 import ServiceSceneStage from "../../../ServiceSceneStage/ServiceSceneStage";
 import { useGSAP } from "@gsap/react";
 
-const Services = ({ gsap, servicesData, activeService, setModalActive, reloadKey }) => {
+const Services = ({
+  gsap,
+  servicesData,
+  activeService,
+  setModalActive,
+  reloadKey,
+}) => {
   const [service, setService] = useState(null);
 
   //   useGSAP(
@@ -33,10 +39,8 @@ const Services = ({ gsap, servicesData, activeService, setModalActive, reloadKey
 
   return (
     <>
-      <div className="service-section">
-
       <div className="services-wrapper">
-        <div className="service-desc-wrapper">
+        {/* <div className="service-desc-wrapper">
           <div className="service-header">
             <h1>{service?.name}</h1>
           </div>
@@ -45,21 +49,23 @@ const Services = ({ gsap, servicesData, activeService, setModalActive, reloadKey
             <div className="button-wrapper">
               {service?.descriptionLong && (
                 <InlineButton
-                id={"Service-More"}
-                buttonName={"More"}
-                setModalActive={setModalActive}
+                  id={"Service-More"}
+                  buttonName={"More"}
+                  setModalActive={setModalActive}
                 />
-                )}
+              )}
             </div>
           </div>
-        </div>
-      </div> 
+        </div> */}
+      </div>
       <div>
         <div className="stage-wrapper">
-          <ServiceSceneStage activeService={activeService} reloadKey={reloadKey}/>
+          <ServiceSceneStage
+            activeService={activeService}
+            reloadKey={reloadKey}
+          />
         </div>
-                </div>
-                </div>
+      </div>
     </>
   );
 };

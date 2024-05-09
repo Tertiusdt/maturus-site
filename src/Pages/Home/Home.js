@@ -22,7 +22,6 @@ const Home = ({
   setActiveService,
   modalActive,
 }) => {
-
   const [reloadKey, setReloadKey] = useState(0);
   gsap.registerPlugin(ScrollTrigger);
   const [servicesSection, ServicesinView] = useInView({
@@ -33,14 +32,12 @@ const Home = ({
   });
 
   useEffect(() => {
-    setReloadKey(prevKey => prevKey + 1);
+    setReloadKey((prevKey) => prevKey + 1);
     if (ServicesinView && activeService === 0) {
       setActiveService(1);
-
-      
     }
-    if (!ServicesinView){
-      setActiveService(0)
+    if (!ServicesinView) {
+      setActiveService(1);
     }
   }, [ServicesinView]);
   useGSAP(
@@ -120,17 +117,17 @@ const Home = ({
         });
 
         /////////// Maturus Name - end  ////////////////////////////
-        gsap.from(".services-wrapper", {
-          scrollTrigger: {
-            trigger: ".services-section",
-            toggleActions: "play reverse play reverse",
-          },
-          opacity: 0,
-          y: -100,
-          duration: 1.5,
-          delay:0.5,
-          ease: "power4.inOut",
-        });
+        // gsap.from(".services-wrapper", {
+        //   scrollTrigger: {
+        //     trigger: ".services-section",
+        //     toggleActions: "play reverse play reverse",
+        //   },
+        //   opacity: 0,
+        //   y: -100,
+        //   duration: 1.5,
+        //   delay: 0.5,
+        //   ease: "power4.inOut",
+        // });
         /////////// Maturus Name  ////////////////////////////
         /////////// Maturus Name - end  ////////////////////////////
       }
@@ -138,33 +135,29 @@ const Home = ({
     { dependencies: [modalActive] }
   );
 
-  useGSAP(
-    () => {
-      gsap.from(".services-wrapper", {
-        scrollTrigger: {
-          trigger: ".services-section",
-          toggleActions: "play reverse play reverse",
-        },
-
-             })
-      })
+  // useGSAP(() => {
+  //   gsap.from(".services-wrapper", {
+  //     scrollTrigger: {
+  //       trigger: ".services-section",
+  //       toggleActions: "play reverse play reverse",
+  //     },
+  //   });
+  // });
 
   useGSAP(
     () => {
       gsap.from(".services-wrapper", {
         scrollTrigger: {
           trigger: ".services-section",
-          toggleActions: "play reverse play reverse",
+          // toggleActions: "play reverse play reverse",
         },
-        
 
-// onStart: () => {
-//   // setReloadKey(prevKey => prevKey + 1);
-//   document
-//   .querySelector(".services-wrapper")
-//   ?.classList?.remove("animate-fade-in-up");
-// },
-
+        // onStart: () => {
+        //   // setReloadKey(prevKey => prevKey + 1);
+        //   document
+        //   .querySelector(".services-wrapper")
+        //   ?.classList?.remove("animate-fade-in-up");
+        // },
 
         // onInterrupt: () => {
         //   const servicesWrapper = document.querySelector(".services-wrapper");
@@ -185,8 +178,12 @@ const Home = ({
           document
             .querySelector(".services-wrapper")
             ?.classList?.remove("animate-fade-in-up");
-            setReloadKey(prevKey => prevKey + 1);
+          // setReloadKey((prevKey) => prevKey + 1);
         },
+
+       onStart: () => {
+        // setReloadKey((prevKey) => prevKey + 1);
+       }
       });
     },
     { dependencies: [ServicesinView, activeService] }

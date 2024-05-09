@@ -18,8 +18,8 @@ const LogoSceneStage = () => {
         //   position: [0, 0, 1],
         // }}
       >
-        <PerspectiveCamera makeDefault aspect={9 / 16} position={[0, 0, 1.2]}   />
-        <LogoScene/>
+        <PerspectiveCamera makeDefault aspect={5 /5} position={[0, 0, 15]}   />
+        <LogoScene position={[0,-5,0]} />
 
       </Canvas>
     </>
