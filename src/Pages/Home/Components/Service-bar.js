@@ -1,7 +1,11 @@
 import MainButton from "../../../Components/Main-button/Main-button";
 import AnimationButton from "../../../Components/Animation-button/Animation-button";
 import DropDown from "../../../Components/DropDown/DropDown"
+import { WindowSizeContext } from "../../../Contexts/ViewPortSizeContext";
 import "./Service-bar.css";
+
+import { useContext } from "react";
+
 
 import { useGSAP } from "@gsap/react";
 
@@ -12,7 +16,9 @@ const ServiceBar = ({
   activeService,
   scrollTrigger,
 }) => {
-  const isMobile = window.innerWidth < 835 ? true : false;
+  const windowSize = useContext(WindowSizeContext)
+
+  const isMobile = windowSize.windowWidth < 835 ? true : false;
 
   useGSAP(() => {
     const serviceBar = document.querySelector(".services-bar");

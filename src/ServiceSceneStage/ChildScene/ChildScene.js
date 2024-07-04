@@ -8,13 +8,17 @@ import {
   Sphere,
   useGLTF,
 } from "@react-three/drei";
+import { WindowSizeContext } from "../../Contexts/ViewPortSizeContext";
+
 
 import * as THREE from "three";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { DEG2RAD } from "three/src/math/MathUtils";
 
 export const ChildScene = ({ scenePath, ...props }) => {
+  const windowSize = useContext(WindowSizeContext)
+
   const { nodes, materials, scene } = useGLTF(scenePath);
   const [cameraDistance, setCameraDistance]= useState(3)
   const [objectHeight, setobjectHeight]= useState(0)
@@ -22,8 +26,8 @@ export const ChildScene = ({ scenePath, ...props }) => {
   
   const orbit = useRef();
   useEffect(()=> {
-    setCameraDistance(window.innerWidth < 750 ? 17.5 : 9);
-    setobjectHeight(window.innerWidth < 750 ? 2 : 0);
+    setCameraDistance(windowSize.windowWidth < 750 ? 17.5 : 9);
+    setobjectHeight(windowSize.windowWidth < 750 ? 2 : 0);
 
   }, [])
   
@@ -49,7 +53,7 @@ export const ChildScene = ({ scenePath, ...props }) => {
     });
   }, [scene]);
 
-  const ratioScale = Math.min(2.5, Math.max(3, window.innerWidth / 1920));
+  const ratioScale = Math.min(2.5, Math.max(3, windowSize.windowWidth / 1920));
   return (
     <>
       <color attach="background" args={["#ffffff"]} />

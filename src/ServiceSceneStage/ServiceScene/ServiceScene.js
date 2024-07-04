@@ -8,15 +8,16 @@ import {
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 // import { useControls } from "leva";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useContext } from "react";
 // import { slideAtom } from "./Overlay";
 
 
 import ServicesData from "./../../Data/Services-data";
 import { ChildScene } from "../ChildScene/ChildScene";
+import { WindowSizeContext } from "../../Contexts/ViewPortSizeContext";
 
 const CameraHandler = ({ slideDistance , activeService, viewport}) => {
-  
+  const windowSize = useContext(WindowSizeContext)  
   const cameraControls = useRef();
   const lastSlide = useRef(0);
 
@@ -32,31 +33,31 @@ const CameraHandler = ({ slideDistance , activeService, viewport}) => {
   const moveToSlide = async () => {
 
     await cameraControls.current.setLookAt(
-      lastSlide.current * (viewport.width + slideDistance),
+      lastSlide.current * (windowSize.windowWidth + slideDistance),
       3,
       // dollyDistance,
       10,
-      lastSlide.current * (viewport.width + slideDistance),
+      lastSlide.current * (windowSize.windowWidth + slideDistance),
       0,
       0,
       true
     );
     await cameraControls.current.setLookAt(
-      (activeService +1) * (viewport.width + slideDistance),
+      (activeService +1) * (windowSize.windowWidth + slideDistance),
       1,
       // dollyDistance,
       10,
-      (activeService) * (viewport.width + slideDistance),
+      (activeService) * (windowSize.windowWidth + slideDistance),
       0,
       0,
       true
     );
 
     await cameraControls.current.setLookAt(
-      activeService * (viewport.width + slideDistance),
+      activeService * (windowSize.windowWidth + slideDistance),
       0,
       5,
-      activeService * (viewport.width + slideDistance),
+      activeService * (windowSize.windowWidth + slideDistance),
       0,
       0,
       true
@@ -67,16 +68,16 @@ const CameraHandler = ({ slideDistance , activeService, viewport}) => {
     // Used to reset the camera position when the viewport changes
     const resetTimeout = setTimeout(() => {
       cameraControls.current.setLookAt(
-        activeService * (viewport.width + slideDistance),
+        activeService * (windowSize.windowWidth + slideDistance),
         0,
         5,
-        activeService * (viewport.width + slideDistance),
+        activeService * (windowSize.windowWidth + slideDistance),
         0,
         0
       );
     }, 200);
     return () => clearTimeout(resetTimeout);
-  }, [viewport]);
+  }, [activeService, slideDistance, windowSize]);
 
   useEffect(() => {
     if (lastSlide.current === activeService) {
@@ -113,13 +114,14 @@ const ServiceScene = ({activeService}) => {
   // });
   const factor = 0.009849948043805
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
+  const windowSize = useContext(WindowSizeContext)
   
 
 
   useEffect(() => {
     setViewport({
-      width: window.innerWidth * factor,
-      height: window.innerHeight * factor
+      width: windowSize.windowWidth * factor,
+      height: windowSize.windowHeight * factor
     });
   },[])
 
@@ -150,9 +152,9 @@ const ServiceScene = ({activeService}) => {
       
       <mesh
         key={scene.id}
-        position={[index * (viewport.width + 1), 0, 0]}
+        position={[index * (windowSize.windowWidth + 1), 0, 0]}
       >
-        <planeGeometry args={[viewport.width, viewport.height]} />
+        <planeGeometry args={[windowSize.windowWidth, windowSize.windowHeight]} />
         <meshBasicMaterial toneMapped={false}>
           <RenderTexture attach="map">
             <ChildScene {...scene}   />

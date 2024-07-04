@@ -9,10 +9,11 @@ import ServicesData from "../../Data/Services-data";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./Home.css";
 import { useGSAP } from "@gsap/react";
 import { useInView } from "react-intersection-observer";
+import { WindowSizeContext } from "../../Contexts/ViewPortSizeContext";
 
 gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
@@ -27,8 +28,8 @@ const Home = ({
   gsap.registerPlugin(ScrollTrigger);
   const [servicesRef, ServicesinView] = useInView({
   });
-
-
+  const windowSize = useContext(WindowSizeContext)
+  console.log("CONTEXT", windowSize);
 
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const Home = ({
             trigger: ".hero-section",
             toggleActions: "none play reverse play",
           },
-          y: -0.85 * window.innerHeight,
+          y: -0.85 * windowSize.windowHeight,
 
           duration: 1,
           ease: "power4.inOut",
@@ -84,9 +85,9 @@ const Home = ({
             trigger: ".contact-section",
             toggleActions: "play reverse play reverse",
           },
-          y: -0.85 * window.innerHeight,
+          y: -0.85 *  windowSize.windowHeight,
           duration: 1,
-          opacity: window.innerHeight < 835? 0 : 1,
+          opacity:  windowSize.windowHeight < 835? 0 : 1,
           ease: "power4.inOut",
         });
 
@@ -130,7 +131,7 @@ const Home = ({
         
       }
     },
-    { dependencies: [] }
+    { dependencies: [windowSize] }
   );
 
   // useGSAP(() => {
@@ -233,9 +234,9 @@ const Home = ({
           activeService={activeService}
         />
       </div>
-      {/* <div className="clientlogos-wrapper">
+      <div className="clientlogos-wrapper">
         <ClientLogos />
-      </div> */}
+      </div>
       <div className="home-wrapper">
         <section className="hero-section"style={{backgroundColor: "darkcyan"}}>
           <Hero />

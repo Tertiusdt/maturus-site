@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { register } from 'swiper/element/bundle';
+import { WindowSizeProvider } from "./Contexts/ViewPortSizeContext"
 
 register();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <WindowSizeProvider>
     <App />
+    </WindowSizeProvider>
   </React.StrictMode>
 );
 
