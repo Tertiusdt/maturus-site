@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MoreInfoModal from "./../../../Modals/more-info-modal";
-import InlineButton from "../../../Components/Inline-button";
+import InlineButton from "../../../Components/Inline-button/Inline-button";
 import "./Services.css";
 import ServiceSceneStage from "../../../ServiceSceneStage/ServiceSceneStage";
 import { useGSAP } from "@gsap/react";
@@ -14,24 +14,54 @@ const Services = ({
 }) => {
   const [service, setService] = useState(null);
 
-  //   useGSAP(
-  //     () => {
+    useGSAP(
+      () => {
 
-  // gsap.from(".services-wrapper", {
-  //     scrollTrigger: {
-  //       trigger: ".services-section",
-  //       toggleActions: "play reverse play reverse",
-  //     },
-  //     opacity: 0,
-  //     y: -100,
-  //     duration: 1.5,
-  //     delay:1,
-  //     ease: "power4.inOut",
-  //   });
+  gsap.from(".services-wrapper", {
+      scrollTrigger: {
+        trigger: ".services-section",
+        toggleActions: "play reset play reset",
+      },
+      opacity: 0,
+      y: -100,
+      duration: 1.5,
+      delay:1,
+      ease: "power4.inOut",
+    });
 
-  //     },
-  //     { dependencies: [activeService, ()=> ] }
-  //   );
+      },
+      { dependencies: [ ] }
+    );
+
+    useGSAP(
+      () => {
+        const animateServiceTextBox = () => {
+          return gsap.fromTo(
+            ".service-text-box",
+            {
+              opacity: 0,
+              y: -100,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.5,
+              delay: 3,
+              ease: "power4.inOut",
+              onInterrupt: animateServiceTextBox,
+            }
+          );
+        };
+    
+        const animation = animateServiceTextBox();
+    
+        return () => {
+          animation.kill();
+        };
+      },
+      [activeService]
+    );
+
 
   useEffect(() => {
     setService(servicesData.filter((item) => item.id === activeService)[0]);
@@ -40,13 +70,14 @@ const Services = ({
   return (
     <>
       <div className="services-wrapper">
-        {/* <div className="service-desc-wrapper">
+        <div className="service-text-area">
+        <div className="service-text-box">
           <div className="service-header">
             <h1>{service?.name}</h1>
           </div>
           <div className="service-description">
             {service?.description}
-            <div className="button-wrapper">
+            <div className="button-wrp">
               {service?.descriptionLong && (
                 <InlineButton
                   id={"Service-More"}
@@ -55,15 +86,16 @@ const Services = ({
                 />
               )}
             </div>
+            </div>
           </div>
-        </div> */}
-      </div>
-      <div>
-        <div className="stage-wrapper">
-          <ServiceSceneStage
-            activeService={activeService}
-            reloadKey={reloadKey}
-          />
+        </div>
+        <div>
+          <div className="stage-wrapper">
+            <ServiceSceneStage
+              activeService={activeService}
+              reloadKey={reloadKey}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -8,12 +8,13 @@ import ServicesData from "../../Data/Services-data";
 
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { useEffect, useState } from "react";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { useEffect, useRef, useState } from "react";
 import "./Home.css";
 import { useGSAP } from "@gsap/react";
 import { useInView } from "react-intersection-observer";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
 const Home = ({
   setMoreServiceData,
@@ -24,12 +25,11 @@ const Home = ({
 }) => {
   const [reloadKey, setReloadKey] = useState(0);
   gsap.registerPlugin(ScrollTrigger);
-  const [servicesSection, ServicesinView] = useInView({
-    // triggerOnce: true,
+  const [servicesRef, ServicesinView] = useInView({
   });
-  const [contactSection, ContactinView] = useInView({
-    // triggerOnce: true,
-  });
+
+
+
 
   useEffect(() => {
     setReloadKey((prevKey) => prevKey + 1);
@@ -40,6 +40,15 @@ const Home = ({
       setActiveService(1);
     }
   }, [ServicesinView]);
+
+  const scrollToSection = () => {
+    gsap.to(window, {
+      scrollTo: "#section2",
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+  };
+
   useGSAP(
     () => {
       if (modalActive === false) {
@@ -77,6 +86,7 @@ const Home = ({
           },
           y: -0.85 * window.innerHeight,
           duration: 1,
+          opacity: window.innerHeight < 835? 0 : 1,
           ease: "power4.inOut",
         });
 
@@ -117,22 +127,10 @@ const Home = ({
         });
 
         /////////// Maturus Name - end  ////////////////////////////
-        // gsap.from(".services-wrapper", {
-        //   scrollTrigger: {
-        //     trigger: ".services-section",
-        //     toggleActions: "play reverse play reverse",
-        //   },
-        //   opacity: 0,
-        //   y: -100,
-        //   duration: 1.5,
-        //   delay: 0.5,
-        //   ease: "power4.inOut",
-        // });
-        /////////// Maturus Name  ////////////////////////////
-        /////////// Maturus Name - end  ////////////////////////////
+        
       }
     },
-    { dependencies: [modalActive] }
+    { dependencies: [] }
   );
 
   // useGSAP(() => {
@@ -144,88 +142,91 @@ const Home = ({
   //   });
   // });
 
-  useGSAP(
-    () => {
-      gsap.from(".services-wrapper", {
-        scrollTrigger: {
-          trigger: ".services-section",
-          // toggleActions: "play reverse play reverse",
-        },
+  // useGSAP(
+  //   () => {
+  //     gsap.from(".services-wrapper", {
+  //       scrollTrigger: {
+  //         trigger: ".services-section",
+  //         // toggleActions: "play reverse play reverse",
+  //       },
 
-        // onStart: () => {
-        //   // setReloadKey(prevKey => prevKey + 1);
-        //   document
-        //   .querySelector(".services-wrapper")
-        //   ?.classList?.remove("animate-fade-in-up");
-        // },
+  //       // onStart: () => {
+  //       //   // setReloadKey(prevKey => prevKey + 1);
+  //       //   document
+  //       //   .querySelector(".services-wrapper")
+  //       //   ?.classList?.remove("animate-fade-in-up");
+  //       // },
 
-        // onInterrupt: () => {
-        //   const servicesWrapper = document.querySelector(".services-wrapper");
-        //   if (servicesWrapper.classList.contains("animate-fade-in-up")) {
-        //     servicesWrapper.classList.remove("animate-fade-in-up");
-        //   } else {
-        //     servicesWrapper.classList.add("animate-fade-in-up");
-        //   }
-        // },
+  //       // onInterrupt: () => {
+  //       //   const servicesWrapper = document.querySelector(".services-wrapper");
+  //       //   if (servicesWrapper.classList.contains("animate-fade-in-up")) {
+  //       //     servicesWrapper.classList.remove("animate-fade-in-up");
+  //       //   } else {
+  //       //     servicesWrapper.classList.add("animate-fade-in-up");
+  //       //   }
+  //       // },
 
-        onComplete: () => {
-          document
-            .querySelector(".services-wrapper")
-            .classList?.add("animate-fade-in-up");
-        },
+  //       onComplete: () => {
+  //         document
+  //           .querySelector(".services-wrapper")
+  //           .classList?.add("animate-fade-in-up");
+  //       },
 
-        onReverseComplete: () => {
-          document
-            .querySelector(".services-wrapper")
-            ?.classList?.remove("animate-fade-in-up");
-          // setReloadKey((prevKey) => prevKey + 1);
-        },
+  //       onReverseComplete: () => {
+  //         document
+  //           .querySelector(".services-wrapper")
+  //           ?.classList?.remove("animate-fade-in-up");
+  //         // setReloadKey((prevKey) => prevKey + 1);
+  //       },
 
-       onStart: () => {
-        // setReloadKey((prevKey) => prevKey + 1);
-       }
-      });
-    },
-    { dependencies: [ServicesinView, activeService] }
-  );
+  //      onStart: () => {
+  //       // setReloadKey((prevKey) => prevKey + 1);
+  //      }
+  //     });
+  //   },
+  //   { dependencies: [ServicesinView, activeService] }
+  // );
 
   useGSAP(
     () => {
       gsap.from(".contact-section", {
         scrollTrigger: {
           trigger: ".contact-section",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none restart none",
         },
+        opacity: 0,
+  //       duration: "1"
+  //       // onInterrupt: () => {
+  //       //   const contactWrapper = document.querySelector(".contact-section");
+  //       //   if (contactWrapper.classList.contains("animate-fade-in-up-contact")) {
+  //       //     contactWrapper.classList.remove("animate-fade-in-up-contact");
+  //       //   } else {
+  //       //     contactWrapper.classList.add("animate-fade-in-up-contact");
+  //       //   }
+  //       // },
 
-        // onInterrupt: () => {
-        //   const contactWrapper = document.querySelector(".contact-section");
-        //   if (contactWrapper.classList.contains("animate-fade-in-up-contact")) {
-        //     contactWrapper.classList.remove("animate-fade-in-up-contact");
-        //   } else {
-        //     contactWrapper.classList.add("animate-fade-in-up-contact");
-        //   }
+
+  //       onStart: () => {
+  //         document
+  //           .querySelector(".contact-section")
+  //           .classList?.add("animate-fade-in-up-contact");
+  //       },
+
+  //       onReverseComplete: () => {
+  //         document
+  //           .querySelector(".contact-section")
+  //           ?.classList?.remove("animate-fade-in-up-contact");
         // },
-
-        onComplete: () => {
-          document
-            .querySelector(".contact-section")
-            .classList?.add("animate-fade-in-up-contact");
-        },
-
-        onReverseComplete: () => {
-          document
-            .querySelector(".contact-section")
-            ?.classList?.remove("animate-fade-in-up-contact");
-        },
       });
     },
-    { dependencies: [ContactinView] }
+    { dependencies: [] }
   );
 
   return (
     <div className="home-page">
       <div className="servicebar-wrapper">
         <ServiceBar
+         scrollTrigger={() => scrollToSection(servicesRef)}
           gsap={gsap}
           servicesData={ServicesData}
           setActiveService={setActiveService}
@@ -239,7 +240,7 @@ const Home = ({
         <section className="hero-section">
           <Hero />
         </section>
-        <section ref={servicesSection} className="services-section">
+        <section id="section2" ref={servicesRef} className="services-section">
           <Services
             gsap={gsap}
             servicesData={ServicesData}
@@ -248,7 +249,7 @@ const Home = ({
             reloadKey={reloadKey}
           />
         </section>
-        <section ref={contactSection} className="contact-section">
+        <section className="contact-section">
           <About />
           <Contact />
         </section>

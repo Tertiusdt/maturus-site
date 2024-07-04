@@ -11,15 +11,22 @@ import {
 
 import * as THREE from "three";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DEG2RAD } from "three/src/math/MathUtils";
 
 export const ChildScene = ({ scenePath, ...props }) => {
   const { nodes, materials, scene } = useGLTF(scenePath);
+  const [cameraDistance, setCameraDistance]= useState(3)
+  const [objectHeight, setobjectHeight]= useState(0)
   // const { nodes, materials, scene, errors } = useGLTF('service-models/web-and-mobile.glb');
-
+  
   const orbit = useRef();
+  useEffect(()=> {
+    setCameraDistance(window.innerWidth < 750 ? 17.5 : 9);
+    setobjectHeight(window.innerWidth < 750 ? 2 : 0);
 
+  }, [])
+  
   useEffect(() => {
     orbit.current.enabled = false;
 
@@ -47,18 +54,19 @@ export const ChildScene = ({ scenePath, ...props }) => {
     <>
       <color attach="background" args={["#ffffff"]} />
       <group dispose={null}>
-        <PerspectiveCamera makeDefault position={[5, 5, 3]} near={0.5} />
+        {console.log(cameraDistance, "inline")}
+        <PerspectiveCamera makeDefault position={[0, 0, cameraDistance]} near={0.5} />
         {/* <spotLight castShadow={true} position={[10,3,3]}  /> */}
         <OrbitControls
           ref={orbit}
           autoRotate
           enablePan={false}
           maxPolarAngle={DEG2RAD * 75}
-          minDistance={6}
-          maxDistance={10}
-          autoRotateSpeed={0.5}
+          // minDistance={6}
+          // maxDistance={10}
+          autoRotateSpeed={0.8}
         />
-        <primitive object={scene} scale={ratioScale} />
+        <primitive position={[0,objectHeight,0]} object={scene} scale={ratioScale} />
         <ambientLight intensity={0.5} color="white" />
         <directionalLight
           position={[5, 10, 5]}
@@ -73,7 +81,7 @@ export const ChildScene = ({ scenePath, ...props }) => {
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        {/* <AccumulativeShadows
+        <AccumulativeShadows
           frames={200}
           alphaTest={0.9}
           scale={30}
@@ -97,7 +105,7 @@ export const ChildScene = ({ scenePath, ...props }) => {
             position={[-5, 5, 15]}
             bias={0.001}
           />
-        </AccumulativeShadows> */}
+        </AccumulativeShadows>
         <Environment blur={0.8} background>
           <Sphere scale={15}>
             <meshBasicMaterial color="white" side={THREE.BackSide} />

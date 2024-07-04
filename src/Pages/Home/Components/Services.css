@@ -1,62 +1,83 @@
+.services-wrapper {
+  /* opacity: 0; */
 
-
-.services-wrapper{
-    opacity: 0;
-    height: fit-content;
-    height: fit-content;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 40%;
-   position: fixed;
-   top: 25%;
-   left: 25px;
-   backdrop-filter: blur(5px);
-   background: rgba(255,255,255,0.3);
-
-   z-index: 1;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.service-desc-wrapper{
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 5%;
-    
-    text-align: left;
+.service-text-area {
+  z-index: 1;
 
+  height: 100%;
+  position: absolute;
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
+  @media (max-width:750px) {
+  }
 }
 
-.service-section{
-    /* display: flex; */
-    /* align-items: center; */
+.service-text-box {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  max-width: 40%;
+  padding: 10px;
+  @media (max-width:750px) {
+    max-width: 90vw;
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
 }
 
-.stage-wrapper{
-    width: 100%;
-    max-width: 100%;
-     height: 100vh;
-     max-height: 100vh;
-     padding-right: 10%;
+.service-section {
+  /* display: flex; */
+  /* align-items: center; */
 }
 
-.service-header{
-    font-size: 26px;
-    text-align: left;
+.stage-wrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  padding-right: 10%;
 }
 
-.service-description h3{
-    font-size: 22px;
-    margin-bottom: 0;
-    font-weight: 800;
-}
-.service-description p{
+.service-header {
+  font-size: 26px;
+  text-align: left;
+  @media (max-width:750px) {
     font-size: 18px;
-    margin-bottom: 0;
-    margin-top: 10px;
-    /* padding-left: 20px; */
+  }
 }
 
-.white-background{
-    height: 50px;
-    background-color: white;
+.service-description h3 {
+  font-size: 22px;
+  margin-bottom: 0;
+  font-weight: 800;
+}
+.service-description p {
+  font-size: 18px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  @media (max-width:750px) {
+    font-size: 14px;
+  }
+  /* padding-left: 20px; */
+}
+
+.white-background {
+  height: 50px;
+  background-color: white;
+}
+
+.button-wrp{
+    position: relative !important;
 }

@@ -66,8 +66,6 @@ const CameraHandler = ({ slideDistance , activeService, viewport}) => {
   useEffect(() => {
     // Used to reset the camera position when the viewport changes
     const resetTimeout = setTimeout(() => {
-      console.log(viewport);
-      console.log("2", window.innerWidth, window.innerHeight);
       cameraControls.current.setLookAt(
         activeService * (viewport.width + slideDistance),
         0,
@@ -119,7 +117,6 @@ const ServiceScene = ({activeService}) => {
 
 
   useEffect(() => {
-    console.log("run");
     setViewport({
       width: window.innerWidth * factor,
       height: window.innerHeight * factor
@@ -133,7 +130,6 @@ const ServiceScene = ({activeService}) => {
     <Environment preset={"sunset"} />
     <CameraHandler 
     viewport={viewport}
-    // slideDistance={slideDistance}
     slideDistance={1}
     activeService={activeService - 1} />
     
@@ -156,21 +152,16 @@ const ServiceScene = ({activeService}) => {
         key={scene.id}
         position={[index * (viewport.width + 1), 0, 0]}
       >
-        {console.log(viewport.width, viewport.height)},
-        {console.log((<planeGeometry args={[viewport.width, viewport.height]} />).props.args,viewport.width, viewport.height) }
         <planeGeometry args={[viewport.width, viewport.height]} />
         <meshBasicMaterial toneMapped={false}>
           <RenderTexture attach="map">
-            <ChildScene {...scene} />
+            <ChildScene {...scene}   />
           </RenderTexture>
         </meshBasicMaterial>
       </mesh>
       
     ))}
-      {/* <mesh>
-        <boxGeometry position={[0,0,-10]} />
-        <meshBasicMaterial color="green" />
-      </mesh> */}
+   
   </>
   );
 };
