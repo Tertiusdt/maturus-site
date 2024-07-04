@@ -155,7 +155,7 @@ const ServiceScene = ({activeService}) => {
         <planeGeometry args={[viewport.width, viewport.height]} />
         <meshBasicMaterial toneMapped={false}>
           <RenderTexture attach="map">
-            <ChildScene {...scene}   />
+            {/* <ChildScene {...scene}   /> */}
           </RenderTexture>
         </meshBasicMaterial>
       </mesh>
