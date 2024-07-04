@@ -93,7 +93,7 @@ const Home = ({
         gsap.to(".clientlogos-wrapper", {
           scrollTrigger: {
             trigger: ".hero-section",
-            toggleActions: "complete reverse play reverse",
+            toggleActions: "play reverse play reverse",
           },
 
           opacity: 0,
@@ -223,7 +223,7 @@ const Home = ({
   );
 
   return (
-    <div className="home-page">
+    <div className="home-page" >
       <div className="servicebar-wrapper">
         <ServiceBar
          scrollTrigger={() => scrollToSection(servicesRef)}
@@ -237,10 +237,10 @@ const Home = ({
         <ClientLogos />
       </div>
       <div className="home-wrapper">
-        <section className="hero-section">
+        <section className="hero-section"style={{backgroundColor: "darkcyan"}}>
           <Hero />
         </section>
-        <section id="section2" ref={servicesRef} className="services-section">
+        <section id="section2" ref={servicesRef} className="services-section"style={{backgroundColor: "red"}}>
           <Services
             gsap={gsap}
             servicesData={ServicesData}
@@ -249,7 +249,7 @@ const Home = ({
             reloadKey={reloadKey}
           />
         </section>
-        <section className="contact-section">
+        <section className="contact-section" style={{backgroundColor: "green"}}>
           <About />
           <Contact />
         </section>
