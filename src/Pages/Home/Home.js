@@ -233,9 +233,9 @@ const Home = ({
           activeService={activeService}
         />
       </div>
-      <div className="clientlogos-wrapper">
+      {/* <div className="clientlogos-wrapper">
         <ClientLogos />
-      </div>
+      </div> */}
       <div className="home-wrapper">
         <section className="hero-section"style={{backgroundColor: "darkcyan"}}>
           <Hero />
