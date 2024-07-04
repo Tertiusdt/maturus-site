@@ -6,12 +6,12 @@
   padding: 5%;
   justify-content: center;
   @media (max-width: 750px) {
-    height: 60vh;
+    height: 60dvh;
     width: 90vw;
     padding: 0;
     @media (min-height: 700px) {
         padding-bottom: 3px;
-        height: 50vh;
+        height: 50dvh;
 
     }
   }

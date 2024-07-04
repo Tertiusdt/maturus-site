@@ -41,7 +41,7 @@ const ServiceSceneStage = ({ activeService, reloadKey }) => {
   return (
     <>
       {/* <Leva /> */}
-      <div style={{position: "absolute", width: "100vw", height: "100vh"}} ></div>
+      <div style={{ width: "100vw", height: "100dvh"}} ></div>
       {/* <Canvas  key={reloadKey}
    >
     <ServiceScene  activeService={activeService} />
