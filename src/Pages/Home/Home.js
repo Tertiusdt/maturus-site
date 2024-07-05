@@ -131,7 +131,7 @@ const Home = ({
         
       }
     },
-    { dependencies: [windowSize] }
+    { dependencies: [] }
   );
 
   // useGSAP(() => {
