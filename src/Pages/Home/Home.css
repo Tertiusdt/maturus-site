@@ -1,5 +1,5 @@
 :root {
-  scroll-snap-type: y mandatory;
+  /* scroll-snap-type: y mandatory;
   overflow-y: auto;
   overscroll-behavior-y: contain;
   overflow-x: hidden;
@@ -9,7 +9,7 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 }
 
 @keyframes fadeInUp {
