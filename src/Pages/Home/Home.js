@@ -87,7 +87,7 @@ const Home = ({
           },
           y: -0.85 *  windowSize.windowHeight,
           duration: 1,
-          opacity:  windowSize.windowHeight < 835? 0 : 1,
+          opacity:  1,
           ease: "power4.inOut",
         });
 

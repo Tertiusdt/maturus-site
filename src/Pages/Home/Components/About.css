@@ -6,7 +6,7 @@
     justify-content: center;
     padding: 5%;
     @media (max-width:750px) {
-        height: 40dvh;
+        height: calc(var(--vh, 1vh) * 40);
         width: 90vw;
         padding: 0;
         @media (min-height: 700px) {
