@@ -238,10 +238,10 @@ const Home = ({
         <ClientLogos />
       </div>
       <div className="home-wrapper">
-        <section className="hero-section"style={{backgroundColor: "darkcyan"}}>
+        <section className="hero-section"style={{backgroundColor: "darkcyan", maxHeight: `${windowSize.windowHeight}px`}}>
           <Hero />
         </section>
-        <section id="section2" ref={servicesRef} className="services-section"style={{backgroundColor: "red"}}>
+        <section id="section2" ref={servicesRef} className="services-section"style={{backgroundColor: "red", maxHeight: `${windowSize.windowHeight}px`}}>
           <Services
             gsap={gsap}
             servicesData={ServicesData}
@@ -250,7 +250,7 @@ const Home = ({
             reloadKey={reloadKey}
           />
         </section>
-        <section className="contact-section" style={{backgroundColor: "green"}}>
+        <section className="contact-section" style={{backgroundColor: "green",maxHeight: `${windowSize.windowHeight}px`, height: `${windowSize.windowHeight}px`}}>
           <About />
           <Contact />
         </section>
