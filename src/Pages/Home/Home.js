@@ -56,7 +56,7 @@ const Home = ({
         /////////// services-bar  ////////////////////////////
         gsap.to(".servicebar-wrapper", {
           scrollTrigger: {
-            trigger: ".hero-section",
+            trigger: ".slogan",
             toggleActions: "none play reverse play",
           },
           y: -0.85 * windowSize.windowHeight,
@@ -70,7 +70,7 @@ const Home = ({
 
         gsap.to(".servicebar-wrapper", {
           scrollTrigger: {
-            trigger: ".contact-section",
+            trigger: ".about-text",
             toggleActions: "play reverse play reverse",
           },
           opacity: 0,
@@ -82,7 +82,7 @@ const Home = ({
         /////////// Client Logos  ////////////////////////////
         gsap.to(".clientlogos-wrapper", {
           scrollTrigger: {
-            trigger: ".contact-section",
+            trigger: ".about-text",
             toggleActions: "play reverse play reverse",
           },
           y: -0.85 *  windowSize.windowHeight,
@@ -93,7 +93,7 @@ const Home = ({
 
         gsap.to(".clientlogos-wrapper", {
           scrollTrigger: {
-            trigger: ".hero-section",
+            trigger: ".slogan",
             toggleActions: "play reverse play reverse",
           },
 
@@ -106,7 +106,7 @@ const Home = ({
 
         gsap.from(".wrapper", {
           scrollTrigger: {
-            trigger: ".hero-section",
+            trigger: ".slogan",
             toggleActions: "play none restart none",
           },
           opacity: 0,
@@ -117,7 +117,7 @@ const Home = ({
 
         gsap.from(".scroll-indicator", {
           scrollTrigger: {
-            trigger: ".hero-section",
+            trigger: ".slogan",
             toggleActions: "play none reset none",
           },
           opacity: 0,
@@ -131,7 +131,7 @@ const Home = ({
         
       }
     },
-    { dependencies: [windowSize] }
+    { dependencies: [] }
   );
 
   // useGSAP(() => {
