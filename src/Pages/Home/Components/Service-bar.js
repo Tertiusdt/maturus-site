@@ -99,7 +99,8 @@ const ServiceBar = ({
           // })
         }
         gsap.to(".anim-button-wrapper", {
-          opacity: 0,
+          opacity: 0, 
+          duration: 0.05
         });
         // gsap.to(".dropdown-wrapper", {
         //   css: { zIndex: 300 },
